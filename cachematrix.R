@@ -7,11 +7,11 @@
 
 ## makeCacheMatrix provides an initial value for the matrix
 ## x (which is then stored as a local variable), and returns a list 
-## of access functions:
-##   set -- changes the value of the matrix.
-##   get -- retrieves the cached matrix.
-##   setinverse -- stores the matrix inverse.
-##   getinverse -- retrieves the inverse from the cache.
+## of access functions of the cache object:
+##   set(aMatrix) -- changes the value of the matrix.
+##   get() -- retrieves the cached matrix.
+##   setinverse(anInverse) -- stores the matrix inverse.
+##   getinverse() -- retrieves the inverse from the cache.
 ##   Example usage:
 ##   cacheObject <- makeCacheMatrix(matrix(data=c(1,2,3,4), nrow=2, ncol=2))
 
@@ -34,7 +34,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## The argument to cacheSolve is a cache object, x.
 ## cacheSolve returns the matrix inverse, if it is in the
 ## cache object; otherwise, cacheSolve computes the matrix  
-## inverse, stores it in x, and then returns it.
+## inverse, stores it in x, and then returns the matrix inverse.
 ## Example usage:
 ## matrixInverse <- cacheSolve(cacheObject)
 
@@ -48,8 +48,8 @@ cacheSolve <- function(x, ...) {
                 return(inverse)
         }
         data <- x$get()
-        ## Note: It is assumed that the matrix in the 
-        ## cache object is invertible.  If not, solve()
+        ## Note: The matrix in the cache object
+        ## must be invertible.  If not, solve(), below,
         ## will return an error (system is singular).
         inverse <- solve(data, ...)
         x$setinverse(inverse)
