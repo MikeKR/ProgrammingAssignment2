@@ -42,9 +42,6 @@ cacheSolve <- function(x, ...) {
         inverse <- x$getinverse()
         if(!is.null(inverse)) {
                 message("getting cached data")
-                # The "message" is sent to stderr,
-                # and is not visible in the RStudio
-                # console by default.
                 return(inverse)
         }
         data <- x$get()
